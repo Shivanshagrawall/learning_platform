@@ -9,17 +9,18 @@ import Course from "../models/Course.js";
 // API Controller Function to Manage Clerk User with database
 export const clerkWebhooks = async (req, res) => {
   try {
-
+    console.log("1");
+    
     // Create a Svix instance with clerk webhook secret.
     const whook = new Webhook(process.env.CLERK_WEBHOOK_SECRET)
-
+    console.log("2");
     // Verifying Headers
     await whook.verify(JSON.stringify(req.body), {
       "svix-id": req.headers["svix-id"],
       "svix-timestamp": req.headers["svix-timestamp"],
       "svix-signature": req.headers["svix-signature"]
     })
-
+    console.log("3");
     // Getting Data from request body
     const { data, type } = req.body
 
@@ -58,6 +59,8 @@ export const clerkWebhooks = async (req, res) => {
       default:
         break;
     }
+    console.log("4");
+    
 
   } catch (error) {
     res.json({ success: false, message: error.message })
